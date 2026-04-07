@@ -40,10 +40,8 @@ public class CuentaServiceImpl implements CuentaService {
             throw new RuntimeException("La cuenta de ahorros no puede tener saldo menor a $0");
         }
 
-        // Si es cuenta de ahorros, se activa por defecto
-        if (cuenta.getTipoCuenta() == TipoCuenta.AHORROS) {
-            cuenta.setEstado(EstadoCuenta.ACTIVA);
-        }
+        // Toda cuenta se crea como ACTIVA por defecto
+        cuenta.setEstado(EstadoCuenta.ACTIVA);
 
         // Si no se envía saldo, iniciar en 0
         if (cuenta.getSaldo() == null) {
