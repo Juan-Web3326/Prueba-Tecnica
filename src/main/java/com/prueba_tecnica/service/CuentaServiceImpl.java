@@ -48,6 +48,9 @@ public class CuentaServiceImpl implements CuentaService {
             cuenta.setSaldo(BigDecimal.ZERO);
         }
 
+        // Saldo disponible inicia igual al saldo
+        cuenta.setSaldoDisponible(cuenta.getSaldo());
+
         // Generar número de cuenta único de 10 dígitos
         cuenta.setNumeroCuenta(generarNumeroCuenta(cuenta.getTipoCuenta()));
 
