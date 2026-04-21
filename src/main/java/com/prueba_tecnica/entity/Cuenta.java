@@ -37,6 +37,10 @@ public class Cuenta {
     @Column(name = "saldo", precision = 15, scale = 2)
     private BigDecimal saldo;
 
+    // Saldo disponible de la cuenta
+    @Column(name = "saldo_disponible", precision = 15, scale = 2)
+    private BigDecimal saldoDisponible;
+
     // Exenta de GMF (4x1000)
     @Column(name = "exenta_gmf")
     private Boolean exentaGmf;
@@ -117,6 +121,14 @@ public class Cuenta {
 
     public void setSaldo(BigDecimal saldo) {
         this.saldo = saldo;
+    }
+
+    public BigDecimal getSaldoDisponible() {
+        return saldoDisponible;
+    }
+
+    public void setSaldoDisponible(BigDecimal saldoDisponible) {
+        this.saldoDisponible = saldoDisponible;
     }
 
     public Boolean getExentaGmf() {
