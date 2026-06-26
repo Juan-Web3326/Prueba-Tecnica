@@ -1,9 +1,19 @@
 package com.prueba_tecnica.entity;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+@JsonPropertyOrder({
+        "id",
+        "tipoTransaccion",
+        "cuentaOrigen",
+        "cuentaDestino",
+        "monto",
+        "fecha"
+})
 
 // Entidad que mapea la tabla "transacciones" de MySQL
 @Entity

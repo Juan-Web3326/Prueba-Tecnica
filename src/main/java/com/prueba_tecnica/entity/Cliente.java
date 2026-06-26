@@ -1,5 +1,6 @@
 package com.prueba_tecnica.entity;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -8,6 +9,18 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+@JsonPropertyOrder({
+        "id",
+        "tipoIdentificacion",
+        "numeroIdentificacion",
+        "nombres",
+        "apellidos",
+        "correo",
+        "fechaNacimiento",
+        "fechaCreacion",
+        "fechaModificacion"
+})
 
 // Entidad que mapea la tabla "clientes" de MySQL
 @Entity
