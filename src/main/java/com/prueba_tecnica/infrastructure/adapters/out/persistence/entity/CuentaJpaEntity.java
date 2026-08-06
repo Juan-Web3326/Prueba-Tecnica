@@ -1,94 +1,40 @@
-package com.prueba_tecnica.entity;
+package com.prueba_tecnica.infrastructure.adapters.out.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@JsonPropertyOrder({
-        "id",
-        "cliente",
-        "tipoCuenta",
-        "numeroCuenta",
-        "estado",
-        "saldo",
-        "saldoDisponible",
-        "exentaGmf",
-        "fechaCreacion",
-        "fechaModificacion"
-})
-
-// Entidad que mapea la tabla "cuentas" de MySQL
 @Entity
 @Table(name = "cuentas")
-public class Cuenta {
-
+public class CuentaJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    // Relación con cliente
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private Cliente cliente;
-
-    // Tipo de cuenta: AHORROS o CORRIENTE
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_cuenta", nullable = false)
-    private TipoCuenta tipoCuenta;
-
-    // Número de cuenta único (10 caracteres)
-    @Column(name = "numero_cuenta", nullable = false, unique = true, length = 10)
+    @JoinColumn(name = "cliente_id")
+    private ClienteJpaEntity cliente;
+    @Column(name = "tipo_cuenta")
+    private String tipoCuenta;
+    @Column(name = "numero_cuenta", unique = true)
     private String numeroCuenta;
-
-    // Estado de la cuenta
-    @Enumerated(EnumType.STRING)
     @Column(name = "estado")
-    private EstadoCuenta estado;
-
-    // Saldo de la cuenta
-    @Column(name = "saldo", precision = 15, scale = 2)
+    private String estado;
+    @Column(name = "saldo")
     private BigDecimal saldo;
-
-    // Saldo disponible de la cuenta
-    @Column(name = "saldo_disponible", precision = 15, scale = 2)
+    @Column(name = "saldo_disponible")
     private BigDecimal saldoDisponible;
-
-    // Exenta de GMF (4x1000)
     @Column(name = "exenta_gmf")
     private Boolean exentaGmf;
-
     @Column(name = "fecha_creacion", updatable = false)
     private LocalDateTime fechaCreacion;
-
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
 
-    @PrePersist
-    protected void onCreate() {
-        this.fechaCreacion = LocalDateTime.now();
+    public CuentaJpaEntity() {
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.fechaModificacion = LocalDateTime.now();
-    }
-
-    public Cuenta() {
-    }
-
-    // Enums internos
-    public enum TipoCuenta {
-        AHORROS, CORRIENTE
-    }
-
-    public enum EstadoCuenta {
-        ACTIVA, INACTIVA, CANCELADA
-    }
-
-    // Getters y Setters
-
+    // Getters y Setters...
     public Long getId() {
         return id;
     }
@@ -97,19 +43,19 @@ public class Cuenta {
         this.id = id;
     }
 
-    public Cliente getCliente() {
+    public ClienteJpaEntity getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(ClienteJpaEntity cliente) {
         this.cliente = cliente;
     }
 
-    public TipoCuenta getTipoCuenta() {
+    public String getTipoCuenta() {
         return tipoCuenta;
     }
 
-    public void setTipoCuenta(TipoCuenta tipoCuenta) {
+    public void setTipoCuenta(String tipoCuenta) {
         this.tipoCuenta = tipoCuenta;
     }
 
@@ -121,11 +67,11 @@ public class Cuenta {
         this.numeroCuenta = numeroCuenta;
     }
 
-    public EstadoCuenta getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoCuenta estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 

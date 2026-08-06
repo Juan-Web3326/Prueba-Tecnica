@@ -1,95 +1,37 @@
-package com.prueba_tecnica.entity;
+package com.prueba_tecnica.infrastructure.adapters.out.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@JsonPropertyOrder({
-        "id",
-        "tipoIdentificacion",
-        "numeroIdentificacion",
-        "nombres",
-        "apellidos",
-        "correo",
-        "fechaNacimiento",
-        "fechaCreacion",
-        "fechaModificacion"
-})
-
-// Entidad que mapea la tabla "clientes" de MySQL
 @Entity
 @Table(name = "clientes")
-public class Cliente {
-
+public class ClienteJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    // Tipo de identificación (CC, NIT, etc.)
-    @NotBlank
-    @Column(name = "tipo_identificacion", nullable = false, length = 10)
+    @Column(name = "tipo_identificacion")
     private String tipoIdentificacion;
-
-    // Número de identificación único
-    @NotBlank
-    @Column(name = "numero_identificacion", nullable = false, unique = true, length = 20)
+    @Column(name = "numero_identificacion", unique = true)
     private String numeroIdentificacion;
-
-    // Nombres del cliente (mínimo 2 caracteres)
-    @NotBlank
-    @Size(min = 2)
-    @Column(name = "nombres", nullable = false, length = 100)
+    @Column(name = "nombres")
     private String nombres;
-
-    // Apellidos del cliente (mínimo 2 caracteres)
-    @NotBlank
-    @Size(min = 2)
-    @Column(name = "apellidos", nullable = false, length = 100)
+    @Column(name = "apellidos")
     private String apellidos;
-
-    // Correo electrónico único con validación
-    @NotBlank
-    @Email
-    @Column(name = "correo", nullable = false, unique = true, length = 150)
+    @Column(name = "correo", unique = true)
     private String correo;
-
-    // Fecha de nacimiento
-    @NotNull
-    @Column(name = "fecha_nacimiento", nullable = false)
+    @Column(name = "fecha_nacimiento")
     private LocalDate fechaNacimiento;
-
-    // Se asigna automáticamente al crear el registro
     @Column(name = "fecha_creacion", updatable = false)
     private LocalDateTime fechaCreacion;
-
-    // Se actualiza automáticamente al modificar el registro
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
 
-    // Asignar fecha_creacion antes de persistir
-    @PrePersist
-    protected void onCreate() {
-        this.fechaCreacion = LocalDateTime.now();
+    public ClienteJpaEntity() {
     }
 
-    // Asignar fecha_modificacion antes de actualizar
-    @PreUpdate
-    protected void onUpdate() {
-        this.fechaModificacion = LocalDateTime.now();
-    }
-
-    // Constructor vacío requerido por JPA
-    public Cliente() {
-    }
-
-    // Getters y Setters
-
+    // Getters y Setters...
     public Long getId() {
         return id;
     }
