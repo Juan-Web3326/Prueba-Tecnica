@@ -4,7 +4,7 @@ services:
   db:
     image: mysql:8.0
     container_name: banco_db
-    restart: always
+    restart: "no"
     environment:
       MYSQL_ROOT_PASSWORD: "@nino-nakano"
       MYSQL_DATABASE: banco
@@ -22,7 +22,7 @@ services:
   app:
     build: .
     container_name: banco_app
-    restart: always
+    restart: "no"
     ports:
       - "8080:8080"
     environment:
