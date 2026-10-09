@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cuentas")
+@CrossOrigin("*")
 public class CuentaController {
 
     private final CuentaUseCase cuentaUseCase;

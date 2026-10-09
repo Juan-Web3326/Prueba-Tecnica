@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/transacciones")
+@CrossOrigin("*")
 public class TransaccionController {
 
     private final TransaccionUseCase transaccionUseCase;
